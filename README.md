@@ -24,6 +24,8 @@ But now you can
 
 ### [DEMO](https://paul-browne.github.io/HTMLInclude/)
 
+---
+
 Also, you can use `data-replace` to swap strings from within the `data-include` html.
 
 ```html
@@ -48,6 +50,8 @@ NOTE: If there are multiple instances of the string `%name%` then all will be re
 
 ### [DEMO](https://paul-browne.github.io/HTMLInclude/greeting-demo.html)
 
+---
+
 You can swap multiple strings at a time
 
 ```html
@@ -67,6 +71,8 @@ You can swap multiple strings at a time
 ```
 
 ### [DEMO](https://paul-browne.github.io/HTMLInclude/welcome-demo.html)
+
+---
 
 The most practical use case for the `data-replace` is when using a templating engine like mustache
 
