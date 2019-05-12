@@ -77,10 +77,26 @@ You can swap multiple strings at a time
 The most practical use case for the `data-replace` is when using a templating engine like mustache
 
 ```html
-  <div data-include="country-template.html" data-replace="%country%:uk"></div>
-  <div data-include="country-template.html" data-replace="%country%:france"></div>
-  <div data-include="country-template.html" data-replace="%country%:germany"></div>
-  <div data-include="country-template.html" data-replace="%country%:spain"></div>
+  <div data-include="countries.html" data-replace="%country%:uk"></div>
+  <div data-include="countries.html" data-replace="%country%:france"></div>
+  <div data-include="countries.html" data-replace="%country%:germany"></div>
+  <div data-include="countries.html" data-replace="%country%:spain"></div>
 ```
 
 ### [DEMO](https://paul-browne.github.io/HTMLInclude/mustache-demo.html)
+
+---
+
+You can also nest `includes`, you'll need to call the `HTMLInclude()` function again
+
+```html
+  <div data-include="nested.html"></div>
+```
+
+##### nested.html
+```html
+  <div data-include="footer.html"></div>
+  <script>HTMLInclude();</script>
+```
+
+### [DEMO](https://paul-browne.github.io/HTMLInclude/nested-demo.html)
