@@ -36,7 +36,7 @@
             render(data);
         })
     } else {
-        ajaxRequest("mustache.js", function(mustacheScript) {
+        ajaxRequest("js/mustache.min.js", function(mustacheScript) {
             var script = document.createElement("SCRIPT");
             script.innerHTML = mustacheScript;
             document.getElementsByTagName("HEAD")[0].appendChild(script);
