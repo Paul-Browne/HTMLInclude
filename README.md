@@ -18,7 +18,7 @@ But now you can
   Content
   <div data-include="footer.html"></div>
   
-  <script src="js/HTMLInclude.js"></script>
+  <script src="js/HTMLInclude.min.js"></script>
 </body>
 ```
 

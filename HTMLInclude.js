@@ -14,15 +14,17 @@
                                 out = out.replace(new RegExp(o[0].trim(), "g"), o[1].trim());
                             });
                         }
-                        element.outerHTML = out;
-                        var scripts = new DOMParser().parseFromString(out, 'text/html').querySelectorAll("SCRIPT");
-                        var i = 0;
-                        var j = scripts.length;
-                        while (i < j) {
-                            var newScript = document.createElement("SCRIPT");
-                            scripts[i].src ? newScript.src = scripts[i].src : newScript.innerHTML = scripts[i].innerHTML;
-                            document.head.appendChild(newScript);
-                            i++;
+                        if(element.parentNode){
+                            element.outerHTML = out;
+                            var scripts = new DOMParser().parseFromString(out, 'text/html').querySelectorAll("SCRIPT");
+                            var i = 0;
+                            var j = scripts.length;
+                            while (i < j) {
+                                var newScript = document.createElement("SCRIPT");
+                                scripts[i].src ? newScript.src = scripts[i].src : newScript.innerHTML = scripts[i].innerHTML;
+                                document.head.appendChild(newScript);
+                                i++;
+                            }
                         }
                     }
                 };
