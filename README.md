@@ -22,7 +22,7 @@ But now you can
 </body>
 ```
 
-### [DEMO](https://paul-browne.github.io/HTMLInclude/)
+### [DEMO](https://paul-browne.github.io/HTMLInclude/simple-demo.html)
 
 ---
 
