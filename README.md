@@ -80,7 +80,6 @@ The most practical use case for the `data-replace` is when using a templating en
 <div data-include="countries.html" data-replace="%country%:uk"></div>
 <div data-include="countries.html" data-replace="%country%:france"></div>
 <div data-include="countries.html" data-replace="%country%:germany"></div>
-<div data-include="countries.html" data-replace="%country%:spain"></div>
 ```
 
 ### [DEMO](https://paul-browne.github.io/HTMLInclude/mustache-demo.html)
