@@ -1,6 +1,6 @@
 # HTMLInclude
 
-One simply does not
+Because, One simply does not
 
 ```html
 <body>
@@ -22,75 +22,59 @@ But now you can
 </body>
 ```
 
-## [DEMO](https://paul-browne.github.io/HTMLInclude/)
+### [DEMO](https://paul-browne.github.io/HTMLInclude/)
 
-Also, if you want to, you can pass `replacements` to the include. Useful for re-use of templates.
-
-```html
-  <div data-include="infocard-template.html" data-replace="%country%:uk"></div>
-  <div data-include="infocard-template.html" data-replace="%country%:france"></div>
-  <div data-include="infocard-template.html" data-replace="%country%:germany"></div>
-  <div data-include="infocard-template.html" data-replace="%country%:spain"></div>
-```
-
-And the contents of infocard-template would be something like this
+Also, you can use `data-replace` to swap strings from within the `data-include` html.
 
 ```html
-<div id="target-%country%">Loading...</div>
-<script>
-! function() {
-    var template = `
-    <h1>{{country}}</h1>
-    <img src="%country%.jpg">
-    <ul>
-        <li><strong>Population: </strong>{{population}}</li>
-        <li><strong>Size: </strong>{{size}}</li>
-        <li><strong>Language: </strong>{{lang}}</li>
-    </ul>`;
-
-    function ajaxRequest(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.open("GET", url, true);
-        xhr.send();
-    }
-
-    function render(json) {
-        var parsedData = JSON.parse(json);
-        var rendered = Mustache.render(template, parsedData);
-        document.getElementById("target-%country%").innerHTML = rendered;
-    }
-    
-    if (window.Mustache) {
-        ajaxRequest("%country%.json", function(response) {
-            render(response);
-        })
-    } else {
-        ajaxRequest("mustache.js", function(res) {
-            var s = document.createElement("SCRIPT");
-            s.innerHTML = res;
-            document.getElementsByTagName("HEAD")[0].appendChild(s);
-            ajaxRequest("%country%.json", function(response) {
-                render(response);
-            })
-        })
-    }
-}();
-</script>
+<div data-include="greeting.html" data-replace="%name%:Mike"></div>
+<div data-include="greeting.html" data-replace="%name%:Frank"></div>
+<div data-include="greeting.html" data-replace="%name%:Bob"></div>
 ```
 
-with the data looking like
-
-```json
-{
-	"country": "United Kingdom",
-	"population": "66 million", 
-	"size": "242,495 km²", 
-	"lang": "English" 
-}
+###### greeting.html
+```html
+<h1>Hello %name%!!</h1>	  
 ```
 
+###### output
+```html
+<h1>Hello Mike!!</h1>
+<h1>Hello Frank!!</h1>
+<h1>Hello Bob!!</h1>
+```
+
+NOTE: If there are multiple instances of the string `%name%` then all will be replaced
+
+### [DEMO](https://paul-browne.github.io/HTMLInclude/greeting-demo.html)
+
+You can swap multiple strings at a time
+
+```html
+  <div data-include="welcome.html" data-replace="%welcome%:Hello, %name%:Mike, %emotion%:Happy"></div>
+```
+
+###### welcome.html
+```html
+<h1>%welcome% %name%!!</h1>
+<p>I am very %emotion% to meet you!</p>
+```
+
+###### output
+```html
+<h1>Hello Mike!!</h1>
+<p>I am very Happy to meet you!</p>
+```
+
+### [DEMO](https://paul-browne.github.io/HTMLInclude/welcome-demo.html)
+
+The most practical use case for the `data-replace` is when using a templating engine like mustache
+
+```html
+  <div data-include="country-template.html" data-replace="%country%:uk"></div>
+  <div data-include="country-template.html" data-replace="%country%:france"></div>
+  <div data-include="country-template.html" data-replace="%country%:germany"></div>
+  <div data-include="country-template.html" data-replace="%country%:spain"></div>
+```
+
+### [DEMO](https://paul-browne.github.io/HTMLInclude/mustache-demo.html)
