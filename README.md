@@ -22,7 +22,7 @@ But now you can
 </body>
 ```
 
-[DEMO](https://paul-browne.github.io/HTMLInclude/)
+## [DEMO](https://paul-browne.github.io/HTMLInclude/)
 
 Also, if you want to, you can pass `replacements` to the include. Useful for re-use of templates.
 
