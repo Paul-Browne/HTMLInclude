@@ -1,0 +1,49 @@
+<div id="target-%country%">Loading...</div>
+
+<template id="template-%country%">
+<h1>{{country}}</h1>
+<img src="%country%.jpg">
+<ul>
+	<li><strong>Population: </strong>{{population}}</li>
+	<li><strong>Size: </strong>{{size}}</li>
+	<li><strong>Language: </strong>{{lang}}</li>
+</ul>
+</template>
+
+<script>
+! function() {
+
+    function ajaxRequest(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+    }
+
+    function render(json) {
+        var parsedData = JSON.parse(json);
+        var template = document.getElementById("template-%country%").innerHTML;
+        var rendered = Mustache.render(template, parsedData);
+        document.getElementById("target-%country%").innerHTML = rendered;
+    }
+
+    if (window.Mustache) {
+        ajaxRequest("data/%country%.json", function(data) {
+            render(data);
+        })
+    } else {
+        ajaxRequest("mustache.js", function(mustacheScript) {
+            var script = document.createElement("SCRIPT");
+            script.innerHTML = mustacheScript;
+            document.getElementsByTagName("HEAD")[0].appendChild(script);
+            ajaxRequest("data/%country%.json", function(data) {
+                render(data);
+            })
+        })
+    }
+}();
+</script>
