@@ -1,5 +1,5 @@
 /*! HTMLInclude v1.1.0 | MIT License | github.com/paul-browne/HTMLInclude */ 
-! function(w) {
+! function(w,d) {
     if (!w.HTMLInclude) {
         w.HTMLInclude = function() {
             function isInViewport(element, offset) {
@@ -21,9 +21,9 @@
                         var i = 0;
                         var j = scripts.length;
                         while (i < j) {
-                            var newScript = document.createElement("SCRIPT");
+                            var newScript = d.createElement("SCRIPT");
                             scripts[i].src ? newScript.src = scripts[i].src : newScript.innerHTML = scripts[i].innerHTML;
-                            document.head.appendChild(newScript);
+                            d.head.appendChild(newScript);
                             i++;
                         }
                     }
@@ -40,7 +40,7 @@
                 xhr.send();
             }
             function lazyLoad(element, offset){
-                window.addEventListener("scroll", function scrollFunc(){
+                w.addEventListener("scroll", function scrollFunc(){
                     if( isInViewport(element, offset) ){
                         w.removeEventListener("scroll", scrollFunc);
                         ajax(element.getAttribute("data-include"), [element]);
@@ -48,7 +48,7 @@
                 })
             }
             var store = {};
-            var dis = document.querySelectorAll('[data-include]');
+            var dis = d.querySelectorAll('[data-include]');
             var i = dis.length;
             while (i--) {
                 var di = dis[i].getAttribute('data-include');
@@ -66,4 +66,4 @@
         }
     }
     w.HTMLInclude();
-}(window)
+}(window, document)
