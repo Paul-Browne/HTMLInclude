@@ -1,7 +1,10 @@
-/*! HTMLInclude v1.0.2 | MIT License | github.com/paul-browne/HTMLInclude */ 
+/*! HTMLInclude v1.1.0 | MIT License | github.com/paul-browne/HTMLInclude */ 
 ! function(w) {
     if (!w.HTMLInclude) {
         w.HTMLInclude = function() {
+            function isInViewport(element, offset) {
+                return element.getBoundingClientRect().top <= (+offset + w.innerHeight);
+            }
             function callback(response, elements) {
                 elements.forEach(function(element) {
                     var dataReplace = element.getAttribute("data-replace");
@@ -26,7 +29,6 @@
                     }
                 });
             }
-
             function ajax(url, els) {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
@@ -37,13 +39,26 @@
                 xhr.open("GET", url, true);
                 xhr.send();
             }
+            function lazyLoad(element, offset){
+                window.addEventListener("scroll", function scrollFunc(){
+                    if( isInViewport(element, offset) ){
+                        w.removeEventListener("scroll", scrollFunc);
+                        ajax(element.getAttribute("data-include"), [element]);
+                    }
+                })
+            }
             var store = {};
             var dis = document.querySelectorAll('[data-include]');
             var i = dis.length;
             while (i--) {
                 var di = dis[i].getAttribute('data-include');
-                store[di] = store[di] || [];
-                store[di].push(dis[i]);
+                var laziness = dis[i].getAttribute('data-lazy');
+                if( !laziness || ( laziness && isInViewport(dis[i], laziness) ) ){
+                    store[di] = store[di] || [];
+                    store[di].push(dis[i]);
+                }else{
+                    lazyLoad(dis[i], laziness);
+                }
             }
             for (var key in store) {
                 ajax(key, store[key]);

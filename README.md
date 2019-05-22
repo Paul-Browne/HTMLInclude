@@ -86,6 +86,26 @@ The most practical use case for the `data-replace` is when using a templating en
 
 ---
 
+You can also lazyload includes by passing `data-lazy="100"` the number is the offset, eg. the amount of pixels from the bottom of the screen before the include will load. (this number can be negative and the include will load after it has scrolled into view by that amount of pixels)
+
+```html
+<div data-include="templates/countries.html" data-replace="%country%:uk" data-lazy="100" ></div>
+<div data-include="templates/countries.html" data-replace="%country%:france" data-lazy="0" ></div>
+<div data-include="templates/countries.html" data-replace="%country%:germany" data-lazy="-40" ></div>
+```
+
+Includes have no height, because they are empty (unless you add "loading..."), and this might cause following includes to be evaluated as "in the viewport" when they aren't. So you might want to add a fake height to includes before they are loaded like so
+
+```css
+[data-include]{
+	min-height: 100px;
+}
+```
+
+### [DEMO](https://paul-browne.github.io/HTMLInclude/lazy-demo.html)
+
+---
+
 You can also nest `includes`, you'll need to call the `HTMLInclude()` function again
 
 ```html
