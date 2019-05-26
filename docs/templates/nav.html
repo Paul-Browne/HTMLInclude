@@ -1,0 +1,34 @@
+<style type="text/css">
+	nav.main-header {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+	nav.main-header a{
+		text-decoration: none;
+		text-align: center;
+		margin-left: 15px;
+		text-transform: uppercase;
+		color: #000;
+		font-size: 14px;
+		line-height: 2em;
+	}
+	nav.main-header a:first-child{
+		flex-shrink: 0;
+		margin-right: auto;
+		margin-left: 0;
+	}
+	nav.main-header img{
+		width: 120px;
+	}
+</style>
+<nav class="main-header">
+	<a href="/"><img src="images/html-include-logo.png"></a>
+	<a href="/simple-demo">simple</a>
+	<a href="/greeting-demo">data-replace</a>
+	<a href="/welcome-demo">data-replace (multiple)</a>
+	<a href="/mustache-demo">template (mustache)</a>
+	<a href="/lazy-demo">lazyload</a>
+	<a href="/nested-demo">nested includes</a>
+</nav>
